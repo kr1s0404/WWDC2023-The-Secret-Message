@@ -34,7 +34,7 @@ struct FriendUnlockView: View
             
             Spacer()
         }
-        .navigationTitle("Third Pass")
+        .navigationTitle("Third Pass: Player B's Phase")
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.lightYellow)
         .navigationBarBackButtonHidden()
@@ -43,9 +43,9 @@ struct FriendUnlockView: View
                            password: $itemVM.playerBUnlockPassword)
         }
         .overlay {
-            if itemVM.showWrongPasswordAlert { WrongPasswordView }
+            if itemVM.showBWrongPasswordAlert { WrongPasswordView }
             
-            if itemVM.showCorrectPasswordAlert { CorrectPasswordView }
+            if itemVM.showBCorrectPasswordAlert { CorrectPasswordView }
         }
     }
 }
@@ -100,7 +100,7 @@ extension FriendUnlockView {
     
     private var ReadMessageButton: some View {
         NavigationLink {
-            FinalView()
+            ResultView()
                 .environmentObject(itemVM)
         } label: {
             Text("Check out the secret message")
@@ -112,6 +112,7 @@ extension FriendUnlockView {
                 .foregroundColor(.white)
                 .shadow(radius: 5)
                 .cornerRadius(15)
+                .onAppear { itemVM.determineResult() }
         }
     }
     
@@ -131,8 +132,8 @@ extension FriendUnlockView {
         .cornerRadius(15)
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                itemVM.showWrongPasswordAlert = false
-                itemVM.showCorrectPasswordAlert = false
+                itemVM.showBWrongPasswordAlert = false
+                itemVM.showBCorrectPasswordAlert = false
             }
         }
     }
@@ -153,8 +154,8 @@ extension FriendUnlockView {
         .cornerRadius(15)
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                itemVM.showWrongPasswordAlert = false
-                itemVM.showCorrectPasswordAlert = false
+                itemVM.showBWrongPasswordAlert = false
+                itemVM.showBCorrectPasswordAlert = false
             }
         }
     }

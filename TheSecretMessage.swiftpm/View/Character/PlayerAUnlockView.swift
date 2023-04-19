@@ -34,7 +34,7 @@ struct PlayerAUnlockView: View
             
             Spacer()
         }
-        .navigationTitle("Third Pass")
+        .navigationTitle("Second Pass: Player A's Phase")
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.lightYellow)
         .navigationBarBackButtonHidden()
@@ -43,9 +43,9 @@ struct PlayerAUnlockView: View
                            password: $itemVM.playerAUnlockPassword)
         }
         .overlay {
-            if itemVM.showWrongPasswordAlert { WrongPasswordView }
+            if itemVM.showAWrongPasswordAlert { WrongPasswordView }
             
-            if itemVM.showCorrectPasswordAlert { CorrectPasswordView }
+            if itemVM.showACorrectPasswordAlert { CorrectPasswordView }
         }
     }
 }
@@ -71,7 +71,7 @@ extension PlayerAUnlockView {
                 .padding(.vertical, 5)
                 .shadow(color: .blue, radius: 10)
             
-            Text("Now, you need to unlock the box with your password, and it will be send back to Player B. \n\nAfter Player B unlock the last lock on the box, he/she can read the secret message you sent. \n\nLet's hope he/she is on your side, otherwise, I hope you have put the boom inside the box.")
+            Text("Now, you need to unlock the box with your password, and it will be send back to Player B. \n\nAfter Player B unlock the last lock on the box, he/she can read the secret message you sent. \n\nLet's hope he/she is on your side, otherwise, I hope you have put the bomb inside the box.")
                 .font(.title2)
                 .fontWeight(.semibold)
         }
@@ -85,15 +85,23 @@ extension PlayerAUnlockView {
         Button {
             itemVM.showLockView.toggle()
         } label: {
-            Text("Unlock the box")
-                .fontWeight(.heavy)
-                .font(.largeTitle)
-                .padding()
-                .frame(width: 450, height: 120)
-                .background(.blue)
-                .foregroundColor(.white)
-                .shadow(radius: 5)
-                .cornerRadius(15)
+            HStack
+            {
+                Text("Unlock the box")
+                    .fontWeight(.heavy)
+                    .font(.largeTitle)
+                    .padding()
+                
+                Image(systemName: "lock.open.fill")
+                    .font(.largeTitle)
+                    .foregroundColor(.yellow)
+            }
+            .padding()
+            .frame(width: 450, height: 120)
+            .background(.blue)
+            .foregroundColor(.white)
+            .shadow(radius: 5)
+            .cornerRadius(15)
         }
     }
     
@@ -102,15 +110,22 @@ extension PlayerAUnlockView {
             FriendUnlockView()
                 .environmentObject(itemVM)
         } label: {
-            Text("Send the box")
-                .fontWeight(.heavy)
-                .font(.largeTitle)
-                .padding()
-                .frame(width: 450, height: 120)
-                .background(.green)
-                .foregroundColor(.white)
-                .shadow(radius: 5)
-                .cornerRadius(15)
+            HStack
+            {
+                Text("Send it back")
+                    .fontWeight(.heavy)
+                    .font(.largeTitle)
+                    .padding()
+                    
+                Image(systemName: "arrow.up.square")
+                    .font(.largeTitle)
+            }
+            .padding()
+            .frame(width: 450, height: 120)
+            .background(.green)
+            .foregroundColor(.white)
+            .shadow(radius: 5)
+            .cornerRadius(15)
         }
     }
     
@@ -130,8 +145,8 @@ extension PlayerAUnlockView {
         .cornerRadius(15)
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                itemVM.showWrongPasswordAlert = false
-                itemVM.showCorrectPasswordAlert = false
+                itemVM.showAWrongPasswordAlert = false
+                itemVM.showACorrectPasswordAlert = false
             }
         }
     }
@@ -152,8 +167,8 @@ extension PlayerAUnlockView {
         .cornerRadius(15)
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-                itemVM.showWrongPasswordAlert = false
-                itemVM.showCorrectPasswordAlert = false
+                itemVM.showAWrongPasswordAlert = false
+                itemVM.showACorrectPasswordAlert = false
             }
         }
     }

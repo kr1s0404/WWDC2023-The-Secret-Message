@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FriendView: View
+struct PlayerBLockView: View
 {
     @EnvironmentObject var itemVM: ItemViewModel
     
@@ -42,7 +42,7 @@ struct FriendView: View
                 }
             }
             
-            FriendViewDescription()
+            MissionDescription
             
             Spacer()
             
@@ -62,7 +62,7 @@ struct FriendView: View
             
             Spacer()
         }
-        .navigationTitle("Second Pass")
+        .navigationTitle("First Pass: Player B's Phase")
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.lightPink)
         .onReceive(timer) { _ in
@@ -82,12 +82,12 @@ struct FriendView_Previews: PreviewProvider
     
     static var previews: some View
     {
-        FriendView()
+        PlayerBLockView()
             .environmentObject(vm)
     }
 }
 
-extension FriendView {
+extension PlayerBLockView {
     private func hideDeliveryTitle() {
         withAnimation(.spring()) {
             let lastIndex = loadingText.count - 1
@@ -117,6 +117,26 @@ extension FriendView {
             }
         }
         .padding()
+    }
+    
+    private var MissionDescription: some View {
+        VStack
+        {
+            Text("Mission")
+                .font(.largeTitle)
+                .fontWeight(.heavy)
+                .padding(.vertical, 5)
+                .shadow(color: .green, radius: 10)
+            
+            Text("The box is currently locked by Player A's password. \n\nAdd your own lock and password on it. Then it will be send back to Player A to unlock the box. \n\nOnce it was unlock from player A, the box will deliver to you again. \n\nFinally, you can read the secret message.")
+                .font(.title2)
+                .fontWeight(.semibold)
+        }
+        .padding()
+        .frame(width: 550, height: 380, alignment: .top)
+        .background(Material.ultraThickMaterial)
+        .cornerRadius(15)
+        .padding(20)
     }
     
     private var LockButton: some View {
@@ -157,30 +177,5 @@ extension FriendView {
             .shadow(radius: 5)
             .cornerRadius(15)
         }
-    }
-}
-
-
-struct FriendViewDescription: View
-{
-    var body: some View
-    {
-        VStack
-        {
-            Text("Mission")
-                .font(.largeTitle)
-                .fontWeight(.heavy)
-                .padding(.vertical, 5)
-                .shadow(color: .green, radius: 10)
-            
-            Text("The box is currently locked by Player A's password. \n\nAdd your own lock and password on it. Then it will be send back to Player A to unlock the box. \n\nOnce it was unlock from player A, the box will deliver to you again. \n\nFinally, you can read the secret message.")
-                .font(.title2)
-                .fontWeight(.semibold)
-        }
-        .padding()
-        .frame(width: 550, height: 380, alignment: .top)
-        .background(Material.ultraThickMaterial)
-        .cornerRadius(15)
-        .padding(20)
     }
 }

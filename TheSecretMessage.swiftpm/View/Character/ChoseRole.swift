@@ -73,7 +73,7 @@ struct CharacterButton: View
             switch roleType {
             case .middleMan:
                 NavigationLink {
-                    MiddleManView()
+                    PlayerBLockView()
                         .environmentObject(itemVM)
                 } label: {
                     VStack
@@ -82,9 +82,15 @@ struct CharacterButton: View
                         MiddleManButton
                     }
                 }
+                .simultaneousGesture(
+                    TapGesture()
+                        .onEnded { _ in
+                            itemVM.playerBRole = .middleMan
+                        }
+                )
             case .friend:
                 NavigationLink {
-                    FriendView()
+                    PlayerBLockView()
                         .environmentObject(itemVM)
                 } label: {
                     VStack
@@ -93,8 +99,15 @@ struct CharacterButton: View
                         FriendButton
                     }
                 }
+                .simultaneousGesture(
+                    TapGesture()
+                        .onEnded { _ in
+                            itemVM.playerBRole = .friend
+                        }
+                )
             }
         }
+        .navigationBarBackButtonHidden()
     }
 }
 
@@ -146,7 +159,7 @@ struct MiddleManMissionView: View
                 .padding(.vertical, 5)
                 .shadow(color: .red, radius: 10)
             
-            Text("Your goal is steal the secret message without getting explode 💥 by the boom. If you chose to be a middle man, you have to pretend that you are Player A's friend and lock the box with your 4 digital numbers. And the box will be send back back to Player A. \n\nAfter Player A unlock the box, you can steal the secret message and you win! But if Player A think you might be a middle man, he/she may put a Boom 💣 inside the box, it will explode and you lose. \n\nTry your best to tirck Player A that you are friendly and not a middle man!")
+            Text("Your goal is steal the secret message without getting explode 💥 by the bomb. If you chose to be a middle man, you have to pretend that you are Player A's friend and lock the box with your 4 digital numbers. And the box will be send back back to Player A. \n\nAfter Player A unlock the box, you can steal the secret message and you win! But if Player A think you might be a middle man, he/she may put a Bomb 💣 inside the box, it will explode and you lose. \n\nTry your best to tirck Player A that you are friendly and not a middle man!")
                 .font(.headline)
                 .foregroundColor(.black)
                 .multilineTextAlignment(.leading)
@@ -173,7 +186,7 @@ struct FriendMissionView: View
                 .padding(.vertical, 5)
                 .shadow(color: .green, radius: 10)
             
-            Text("Your goal is decrypt the secret message from Player A. If you chose to be Player A's friend, you have to make he/she trust you. After receiving the box from Player A, you have to lock it with your 4 digital numbers. \n\nNow the box will have two lock, and the box will send back to Player A to unlock the first lock. Now, there is only one lock left on the box, and you can unlock it and read the secret message. \n\nIf you get the message successfully, you win. Becareful! Player A may not trust you, he/she might put a Boom 💣 inside the Box. If the box contains a boom, you both lose.")
+            Text("Your goal is decrypt the secret message from Player A. If you chose to be Player A's friend, you have to make he/she trust you. After receiving the box from Player A, you have to lock it with your 4 digital numbers. \n\nNow the box will have two lock, and the box will send back to Player A to unlock the first lock. Now, there is only one lock left on the box, and you can unlock it and read the secret message. \n\nIf you get the message successfully, you win. Becareful! Player A may not trust you, he/she might put a Bomb 💣 inside the Box. If the box contains a bomb, you both lose.")
                 .font(.headline)
                 .foregroundColor(.black)
                 .multilineTextAlignment(.leading)

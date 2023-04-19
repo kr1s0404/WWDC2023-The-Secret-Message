@@ -43,7 +43,7 @@ struct DraggableItem<Draggable: Gesture>: View
                     .frame(width: size, height: size)
                     .position(position)
                     .gesture(gesture)
-            case .boom:
+            case .bomb:
                 Text("💣")
                     .font(.system(size: 116))
                     .frame(width: size, height: size)

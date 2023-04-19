@@ -46,27 +46,27 @@ struct WalkthroughScreen: View {
         ZStack
         {
             if introVM.currentPage == 1 {
-                ScreenView(image: "image1",
-                           title: "Step 1",
-                           detail: "",
+                ScreenView(image: "WDandMH",
+                           title: "Background Knowledge",
+                           detail: "The three-pass protocol is a method of securely transmitting information over an insecure channel, such as the internet. It involves three rounds of communication between two parties, often referred to as Alice and Bob. It was first proposed by  Whitfield Diffie and Martin Hellman in 1976. The first three-pass protocol was developed by Adi Shamir circa 1980, and is described in more detail in a later section and is widely used in modern cryptographic systems.",
                            bgColor: Color.lightYellow)
                 .transition(.scale)
                 .environmentObject(introVM)
             }
             
             if introVM.currentPage == 2 {
-                ScreenView(image: "image2",
-                           title: "Step 2",
-                           detail: "",
+                ScreenView(image: "protocol",
+                           title: "How does it works?",
+                           detail: "In the first round, Alice and Bob exchange public keys. In the second round, Alice generates a random number and encrypts it with Bob's public key, and sends the encrypted message to Bob. In the third round, Bob decrypts the message using his private key, generates another random number, and sends the two random numbers encrypted with Alice's public key back to her. Alice can then decrypt the message using her private key and combine the two random numbers to generate a shared secret key that can be used to encrypt and decrypt subsequent messages.",
                            bgColor: Color.lightBlue)
                 .transition(.scale)
                 .environmentObject(introVM)
             }
             
             if introVM.currentPage == 3 {
-                ScreenView(image: "image3",
-                           title: "Step 3",
-                           detail: "",
+                ScreenView(image: "middle-man",
+                           title: "Potential Danger",
+                           detail: "The three-pass protocol as described above does not provide any authentication. Hence, without any additional authentication the protocol is susceptible to a man-in-the-middle attack if the opponent has the ability to create false messages, or to intercept and replace the genuine transmitted messages. To mitigate this vulnerability, the three-pass protocol can be combined with additional security measures, such as digital signatures or message authentication codes.",
                            bgColor: Color.lightPink)
                 .transition(.scale)
                 .environmentObject(introVM)
@@ -123,7 +123,7 @@ struct ScreenView: View
             {
                 if introVM.currentPage == 1 {
                     Text("The Secret Message！")
-                        .font(.largeTitle)
+                        .font(.system(size: 72))
                         .fontWeight(.heavy)
                         .kerning(1.4)
                 } else {
@@ -163,15 +163,16 @@ struct ScreenView: View
                 .aspectRatio(contentMode: .fit)
             
             Text(title)
-                .font(.title)
+                .font(.system(size: 50))
                 .fontWeight(.bold)
                 .foregroundColor(.black)
                 .padding(.top)
             
-            Text("Lorem ipsum is dummy text used in laying out print, graphic or web designs.")
-                .fontWeight(.semibold)
+            Text(detail)
+                .font(.system(size: 24))
+                .fontWeight(.bold)
                 .kerning(1.3)
-                .multilineTextAlignment(.center)
+                .multilineTextAlignment(.leading)
             
             Spacer(minLength: 120)
         }

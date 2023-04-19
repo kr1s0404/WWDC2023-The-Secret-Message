@@ -38,7 +38,33 @@ struct ItemView: View
             {
                 LazyVGrid(columns: gridItem) {
                     ForEach(itemVM.itemContainers, id: \.id) { item in
-                        ItemContainer(itemVM: itemVM, item: item)
+                        VStack
+                        {
+                            ItemContainer(itemVM: itemVM, item: item)
+                            
+                            switch item.type {
+                            case .paper:
+                                Text("A paper")
+                                    .font(.largeTitle)
+                                    .fontWeight(.heavy)
+                                Text("Write a secret message on it")
+                                    .font(.headline)
+                            case .lock:
+                                Text("A lock")
+                                    .font(.largeTitle)
+                                    .fontWeight(.heavy)
+                                Text("Lock the box")
+                                    .font(.headline)
+                            case .bomb:
+                                Text("A bomb")
+                                    .font(.largeTitle)
+                                    .fontWeight(.heavy)
+                                Text("Explode the middle man or your friend")
+                                    .font(.headline)
+                            default:
+                                Color.clear
+                            }
+                        }
                     }
                 }
                 
@@ -47,7 +73,7 @@ struct ItemView: View
                               gesture: drag)
             }
             
-            Text("Move The Box To The Item You Want To Add")
+            Text("Drag The Box Over The Item You Want To Add")
                 .fontWeight(.heavy)
                 .font(.largeTitle)
         }
@@ -60,6 +86,20 @@ struct ItemView: View
             PasswordView(playerType: .PlayerA,
                          password: $itemVM.playerAPassword)
                 .environmentObject(itemVM)
+        }
+        .alert(isPresented: $itemVM.showBombView) {
+            Alert(
+                title: Text("Put a bomb into the box 💣"),
+                message: Text("Are you sure you want to add a bomb?"),
+                primaryButton: .default(
+                    Text("I'll think about it"),
+                    action: { }
+                ),
+                secondaryButton: .destructive(
+                    Text("I'm so sure, put it in"),
+                    action: itemVM.putBomb
+                )
+            )
         }
         .navigationBarTitleDisplayMode(.inline)
     }

@@ -15,12 +15,13 @@ extension View
 
         let targetSize = controller.view.intrinsicContentSize
         view?.bounds = CGRect(origin: .zero, size: targetSize)
-        view?.backgroundColor = .clear
 
-        let renderer = UIGraphicsImageRenderer(size: targetSize)
+        let format = UIGraphicsImageRendererFormat()
+        let renderer = UIGraphicsImageRenderer(size: targetSize, format: format)
 
         return renderer.image { _ in
-            view?.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: true)
+            view?.drawHierarchy(in: controller.view.bounds,
+                                afterScreenUpdates: true)
         }
     }
 }

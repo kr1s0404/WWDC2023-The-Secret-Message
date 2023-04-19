@@ -17,7 +17,7 @@ enum ItemType {
     case box
     case paper
     case lock
-    case boom
+    case bomb
 }
 
 
@@ -27,6 +27,6 @@ extension Item {
     static let all = [
         Item(id: 1, type: .paper),
         Item(id: 2, type: .lock),
-        Item(id: 3, type: .boom)
+        Item(id: 3, type: .bomb)
     ]
 }

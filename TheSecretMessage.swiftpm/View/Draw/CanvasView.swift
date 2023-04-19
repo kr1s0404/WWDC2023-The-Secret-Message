@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CanvasView: View
 {
+    @Environment(\.displayScale) var displayScale
+    
     @EnvironmentObject var itemVM: ItemViewModel
     
     @State private var currentLine = Line()
@@ -24,6 +26,7 @@ struct CanvasView: View
                                lineWidth: line.lineWidth)
             }
         }
+        .frame(maxWidth: 700, maxHeight: 900)
         .frame(minWidth: 400, minHeight: 400)
         .gesture(DragGesture(minimumDistance: 0, coordinateSpace: .local)
             .onChanged({ value in
@@ -65,7 +68,9 @@ struct CanvasView: View
         .padding(.bottom)
         .overlay(alignment: .topTrailing) {
             Button {
-                let canvasImage = canvas.snapshot()
+                let canvasImage = canvas
+                    .frame(width: 700, height: 900)
+                    .snapshot()
                 itemVM.canvasImage = canvasImage
                 itemVM.showCanvasView = false
             } label: {

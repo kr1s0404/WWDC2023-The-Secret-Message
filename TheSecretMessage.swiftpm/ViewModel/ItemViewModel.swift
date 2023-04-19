@@ -15,9 +15,11 @@ final class ItemViewModel: ObservableObject
     
     @Published var showCanvasView: Bool = false
     @Published var showLockView: Bool = false
-    @Published var showBoomView: Bool = false
+    @Published var showBombView: Bool = false
     
     @Published var canvasImage: UIImage?
+    @Published var boxHasBomb: Bool = false
+    @Published var playerBRole: RoleType?
     @Published var isLockedByA: Bool = false
     @Published var isLockedByB: Bool = false
     @Published var playerAUnlock: Bool = false
@@ -27,8 +29,16 @@ final class ItemViewModel: ObservableObject
     @Published var playerBPassword: String = ""
     @Published var playerAUnlockPassword: String = ""
     @Published var playerBUnlockPassword: String = ""
-    @Published var showWrongPasswordAlert: Bool = false
-    @Published var showCorrectPasswordAlert: Bool = false
+    @Published var showAWrongPasswordAlert: Bool = false
+    @Published var showACorrectPasswordAlert: Bool = false
+    @Published var showBWrongPasswordAlert: Bool = false
+    @Published var showBCorrectPasswordAlert: Bool = false
+    
+    @Published var emitType: EmitType?
+    @Published var bothWin: Bool = false
+    @Published var playerAWin: Bool = false
+    @Published var middleManWin: Bool = false
+    @Published var bothLose: Bool = false
     
     let currentItem = Item.box
     
@@ -64,7 +74,7 @@ final class ItemViewModel: ObservableObject
         } else if highlightedID == 2 {
             showLockView.toggle()
         } else if highlightedID == 3 {
-            showBoomView.toggle()
+            showBombView.toggle()
         }
         
         resetPosition()
@@ -78,21 +88,76 @@ final class ItemViewModel: ObservableObject
         highlightedID == id
     }
     
+    func putBomb() {
+        boxHasBomb = true
+    }
+    
     func checkPlayerAPassword() {
-        if playerAPassword == playerAUnlockPassword {
-            showCorrectPasswordAlert.toggle()
-            playerAUnlock = true
-        } else {
-            showWrongPasswordAlert.toggle()
+        withAnimation(.easeInOut) {
+            if playerAPassword == playerAUnlockPassword {
+                showACorrectPasswordAlert.toggle()
+                playerAUnlock = true
+            } else {
+                showAWrongPasswordAlert.toggle()
+            }
         }
     }
     
     func checkPlayerBPassword() {
-        if playerBPassword == playerBUnlockPassword {
-            showCorrectPasswordAlert.toggle()
-            playerBUnlock = true
-        } else {
-            showWrongPasswordAlert.toggle()
+        withAnimation(.easeInOut) {
+            if playerBPassword == playerBUnlockPassword {
+                showBCorrectPasswordAlert.toggle()
+                playerBUnlock = true
+            } else {
+                showBWrongPasswordAlert.toggle()
+            }
+        }
+    }
+    
+    func determineResult() {
+        guard let playerBRole = playerBRole else { return }
+        
+        if playerBRole == .friend && !boxHasBomb {
+            bothWin = true
+            emitType = .bothWin
+        }
+        
+        if playerBRole == .middleMan && boxHasBomb {
+            playerAWin = true
+            emitType = .playerAWin
+        }
+        
+        if playerBRole == .middleMan && !boxHasBomb {
+            middleManWin = true
+            emitType = .middleManWin
+        }
+        if playerBRole == .friend && boxHasBomb {
+            bothLose = true
+            emitType = .bothLose
+        }
+    }
+    
+    func restartGame() {
+        withAnimation(.easeInOut) {
+            canvasImage = nil
+            boxHasBomb = false
+            playerBRole = nil
+            isLockedByA = false
+            isLockedByB = false
+            playerAUnlock = false
+            playerBUnlock = false
+            playerAPassword = ""
+            playerBPassword = ""
+            playerAUnlockPassword = ""
+            playerBUnlockPassword = ""
+            showAWrongPasswordAlert = false
+            showACorrectPasswordAlert = false
+            showBWrongPasswordAlert = false
+            showBCorrectPasswordAlert = false
+            bothWin = false
+            playerAWin = false
+            middleManWin = false
+            bothLose = false
         }
     }
 }

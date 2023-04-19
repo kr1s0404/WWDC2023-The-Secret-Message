@@ -62,7 +62,7 @@ struct ItemContainer: View
                             return Color.clear
                         }
                     }
-            case .boom:
+            case .bomb:
                 Text("💣")
                     .font(.system(size: 116))
                     .frame(width: size, height: size)

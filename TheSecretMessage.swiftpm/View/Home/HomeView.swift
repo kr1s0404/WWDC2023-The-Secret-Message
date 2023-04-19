@@ -34,7 +34,7 @@ struct HomeView: View
             
             sendButton()
         }
-        .navigationTitle("First Pass")
+        .navigationTitle("Player A's Phase: Write a Message")
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.lightYellow)
     }
@@ -51,7 +51,7 @@ extension HomeView {
                 .padding(.vertical, 5)
                 .shadow(color: .blue, radius: 10)
             
-            Text("Your goal is passing the secret message without letting the middle man know the message detail. After you wrote down your messsage, you can lock the box with 4 digtal numbers. \n\nPlayer B can chose to be a middle man or your friend (You won't know what he/she chose). If you think he/she chose middle man and will steal the secret message, you can set the Boom 💣 in the box. \n\nIf the middle man open the box, the Boom will explose 💥 and you win. But if Player B chose to be your friend and open the box that has a 💣, you both lose. If Player B chose to be your friend and you did not put the 💣 inside the box, you both win!")
+            Text("Your goal is passing the secret message without letting the middle man know the message detail. After you wrote down your messsage, you can lock the box with 4 digtal numbers. \n\nPlayer B can chose to be a middle man or your friend (You won't know what he/she chose). If you think he/she chose middle man and will steal the secret message, you can set the Bomb 💣 in the box. \n\nIf the middle man open the box, the Bomb will explose 💥 and you win. But if Player B chose to be your friend and open the box that has a 💣, you both lose. If Player B chose to be your friend and you did not put the 💣 inside the box, you both win!")
                 .font(.headline)
         }
         .padding()
@@ -102,16 +102,17 @@ extension HomeView {
         HStack
         {
             Text(text)
+                .font(.title)
                 .fontWeight(.heavy)
                 .foregroundColor(.white)
                 .shadow(radius: 5)
             
             Image(systemName: image)
-                .font(.headline)
+                .font(.title)
                 .foregroundColor(.white)
         }
         .padding()
-        .frame(width: 300, height: 80)
+        .frame(width: 500, height: 120)
         .background(status ? Color.blue : Color.gray)
         .cornerRadius(15)
         .shadow(radius: 3)
