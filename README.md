@@ -1,1 +1,6 @@
-# WWDC2023
+# WWDC2023 
+## The Secret Message
+
+My app, the secret message, is a small game built on the "three-pass protocol", which is a cryptographic transmission protocol. During my studies in Computer Science at university, I often encountered new technical terms and computer theories in lectures. However, most of the time, these concepts were presented in written form, and I found it difficult to quickly comprehend the content. As a result, I believed that presenting the workings of these computer theories in the form of a game would assist students in their learning. Thus, I chose the famous theory of the "three-pass protocol" in cryptography as the background of my game, enabling users to gain an understanding of how this protocol operates through playing the game.
+
+The entire app is crafted using Apple's new framework, "SwiftUI". When I first began my journey in iOS development two years ago, SwiftUI had already been launched, and thus, I have been using the SwiftUI framework ever since. The remarkable ease of use, brevity, and declarative style of SwiftUI has provided me with a friendly experience since I first entered the realm of iOS development. Within the app, I have included a drawing feature that replaces the traditional text input method, enabling users to communicate not only through text but also through images.
